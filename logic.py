@@ -25,3 +25,17 @@ def encrypt(msg, pwd):
 def decrypt(msg, pwd):
     try: return get_cipher(pwd).decrypt(msg.encode()).decode()
     except: return "[Decryption Failed]"
+import base64
+
+def encode_file_to_base64(file_path):
+    """Converts any binary file or image into a secure Base64 text string."""
+    with open(file_path, "rb") as file:
+        binary_data = file.read()
+        base64_bytes = base64.b64encode(binary_data)
+        return base64_bytes.decode('utf-8')
+
+def decode_base64_to_file(base64_string, output_path):
+    """Reverts a Base64 text string back into its original binary file format."""
+    binary_data = base64.b64decode(base64_string.encode('utf-8'))
+    with open(output_path, "wb") as file:
+        file.write(binary_data)
